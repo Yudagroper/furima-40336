@@ -39,48 +39,48 @@ Things you may want to cover:
 | birthday           | date    | null: false               |
 
 ### Association
-has_many :markets,
-has_many :receipts,
+has_many :markets
+has_many :receipts
 
 ## markets テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| goods         | string     | null: false                    |
-| explan        | text       | null: false                    |
-| description   | string     | null: false                    |
-| category      | string     | null: false                    |
-| shipping_fee  | string     | null: false                    |
-| shipping_days | string     | null: false                    |
-| prefecture    | string     | null: false                    |
-| price         | string     | null: false                    |
-| user_id       | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| goods            | string     | null: false                    |
+| explan           | text       | null: false                    |
+| condition_id     | integer    | null: false                    |
+| category_id      | integer    | null: false                    |
+| shipping_fee_id  | integer    | null: false                    |
+| shipping_days_id | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ### Association
-has_many :receipts,
-belong_to :user
+has_one :receipt
+belongs_to :user
 
 ## receipts テーブル
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
-| market_id | references | null: false, foreign_key: true |
-| user_id   | references | null: false, foreign_key: true |
+| market    | references | null: false, foreign_key: true |
+| user      | references | null: false, foreign_key: true |
 
 ### Association
-belong_to :user
-belong_to :market
-has_one :buys
+belongs_to :user
+belongs_to :market
+has_one :buy
 
 ## buys テーブル
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | postcode           | string     | null: false                    |
-| prefecture         | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | municipalities     | string     | null: false                    |
 | street_address     | string     | null: false                    |
 | building_name      | string     |                                |
 | telephone_number   | string     | null: false                    |
-| receipt_id         | references | null: false, foreign_key: true |
+| receipt            | references | null: false, foreign_key: true |
 
 ### Association
-has_one :buys
+belongs_to :receipt
