@@ -3,5 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  validates :handle_name, presence: true
+  validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :furigana_last, { with: /\A[ァ-ヶー－]+\z/ }
+  validates :furigana_first, { with: /\A[ァ-ヶー－]+\z/ }
+  validates :birthday
   
 end
