@@ -1,5 +1,9 @@
 class MarketsController < ApplicationController
+  before_action :authenticate_user!, except: :index
+
   def index
-    @markets = market.all
+    @markets = Market.all
   end
+
+
 end
