@@ -32,4 +32,6 @@ class Market < ApplicationRecord
     validates :shipping_fee_id
     validates :shipping_day_id
   end
+
+
 end
