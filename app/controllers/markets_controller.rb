@@ -10,6 +10,12 @@ class MarketsController < ApplicationController
   end
 
   def create
+    @market = Market.new(item_params)
+    if @market.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
-
 end
+
