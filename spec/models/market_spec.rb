@@ -36,6 +36,11 @@ RSpec.describe Market, type: :model do
     end
 
     context '出品ができないとき' do
+      it 'ユーザーが紐付いていなければ投稿できない' do
+        @market.user = nil
+        @market.valid?
+        expect(@market.errors.full_messages).to include('User must exist')
+      end
       it '１枚画像がないと出品できない' do
         @market.image = nil
         @market.valid?
