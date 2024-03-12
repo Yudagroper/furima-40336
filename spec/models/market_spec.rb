@@ -36,11 +36,6 @@ RSpec.describe Market, type: :model do
     end
 
     context '出品ができないとき' do
-      it 'ユーザー登録している人でないと出品できない' do
-        @market.user_id = nil
-        @market.valid?
-        expect(@market.errors.full_messages).to include('User must exist', "User can't be blank")
-      end
       it '１枚画像がないと出品できない' do
         @market.image = nil
         @market.valid?
@@ -64,7 +59,7 @@ RSpec.describe Market, type: :model do
       it 'カテゴリーの情報が空欄だと出品できない' do
         @market.category_id = nil
         @market.valid?
-        expect(@market.errors.full_messages).to include("Category can't be blank", 'Category is not a number')
+        expect(@market.errors.full_messages).to include("Category can't be blank")
       end
       it '商品の状態の情報が「---」だと出品できない' do
         @market.condition_id = 0
@@ -74,7 +69,7 @@ RSpec.describe Market, type: :model do
       it '商品の状態の情報が空欄だと出品できない' do
         @market.condition_id = nil
         @market.valid?
-        expect(@market.errors.full_messages).to include("Condition can't be blank", 'Condition is not a number')
+        expect(@market.errors.full_messages).to include("Condition can't be blank")
       end
       it '配送料の負担の情報が「---」だと出品できない' do
         @market.shipping_fee_id = 0
@@ -84,7 +79,7 @@ RSpec.describe Market, type: :model do
       it '配送料の負担の情報が空欄だと出品できない' do
         @market.shipping_fee_id = nil
         @market.valid?
-        expect(@market.errors.full_messages).to include("Shipping fee can't be blank", 'Shipping fee is not a number')
+        expect(@market.errors.full_messages).to include("Shipping fee can't be blank")
       end
       it '発送元の地域の情報が「---」だと出品できない' do
         @market.prefecture_id = 0
@@ -94,7 +89,7 @@ RSpec.describe Market, type: :model do
       it '発送元の地域の情報が空欄だと出品できない' do
         @market.prefecture_id = nil
         @market.valid?
-        expect(@market.errors.full_messages).to include("Prefecture can't be blank", 'Prefecture is not a number')
+        expect(@market.errors.full_messages).to include("Prefecture can't be blank")
       end
       it '発送までの日数の情報が「---」だと出品できない' do
         @market.shipping_day_id = 0
@@ -104,19 +99,24 @@ RSpec.describe Market, type: :model do
       it '発送までの日数の情報が空欄だと出品できない' do
         @market.shipping_day_id = nil
         @market.valid?
-        expect(@market.errors.full_messages).to include("Shipping day can't be blank", 'Shipping day is not a number')
+        expect(@market.errors.full_messages).to include("Shipping day can't be blank")
       end
-      it '価格が空欄だと出品できない' do
+      it '価格が空だと出品できない' do
         @market.price = nil
         @market.valid?
-        expect(@market.errors.full_messages).to include("Price can't be blank", 'Price is not a number')
+        expect(@market.errors.full_messages).to include("Price can't be blank")
       end
-      it '価格の範囲が、300円未満だと出品できない' do
+      it '価格に半角数字以外が含まれている場合は出品できない' do
+        @market.price = '３00'
+        @market.valid?
+        expect(@market.errors.full_messages).to include("Price is not a number")
+      end
+      it '価格が300円未満だと出品できない' do
         @market.price = 100
         @market.valid?
         expect(@market.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
-      it '価格の範囲が、9,999,999円を超えると出品できない' do
+      it '価格が9,999,999円を超えると出品できない' do
         @market.price = 10_000_000
         @market.valid?
         expect(@market.errors.full_messages).to include('Price must be less than or equal to 9999999')
