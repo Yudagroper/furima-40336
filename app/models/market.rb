@@ -6,7 +6,7 @@ class Market < ApplicationRecord
 
   belongs_to :category
   belongs_to :prefecture
-  belongs_to :item_status
+  belongs_to :condition
   belongs_to :shipping_fee
   belongs_to :shipping_day
 
