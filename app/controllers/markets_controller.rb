@@ -1,5 +1,5 @@
 class MarketsController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, except: :index #:show
 
   def index
     @markets = Market.all.order(created_at: :desc)
@@ -18,12 +18,15 @@ class MarketsController < ApplicationController
     end
   end
 
-  def edit
+  #def edit
     #if @market.user_id == current_user.id && @market.buy.nil?
     #else
     #  redirect_to root_path
     #end
-  end
+  #end
+
+  #def show
+  #end
 
   private
 
