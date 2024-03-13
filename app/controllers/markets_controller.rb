@@ -2,7 +2,7 @@ class MarketsController < ApplicationController
   before_action :authenticate_user!, except: :index
 
   def index
-    #@markets = Market.all
+    @markets = Market.all
   end
 
   def new
@@ -19,10 +19,10 @@ class MarketsController < ApplicationController
   end
 
   def edit
-    #if @market.user_id == current_user.id && @market.buy.nil?
-    #else
-    #  redirect_to root_path
-    #end
+    if @market.user_id == current_user.id && @market.buy.nil?
+    else
+      redirect_to root_path
+    end
   end
 
   private
