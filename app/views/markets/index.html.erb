@@ -130,7 +130,7 @@
 
     <% @markets.each do |market| %>
       <li class='list'>
-        <%= link_to "#" do %>
+        <%= link_to market_path(market) do %>
         <div class='item-img-content'>
         <%= image_tag market.image.variant(resize: '500x500'), class: "item-img" if market.image.attached? %>
           <%# 商品が売れていればsold outを表示しましょう %>

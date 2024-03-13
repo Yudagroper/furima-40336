@@ -1,5 +1,5 @@
 class MarketsController < ApplicationController
-  before_action :authenticate_user!, except: :index #:show
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @markets = Market.all.order(created_at: :desc)
@@ -25,8 +25,9 @@ class MarketsController < ApplicationController
     #end
   #end
 
-  #def show
-  #end
+  def show
+    @market = Market.find(params[:id])
+  end
 
   private
 
