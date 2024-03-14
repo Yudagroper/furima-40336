@@ -1,5 +1,6 @@
 class MarketsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_market, only: [:show, :edit, :update]
 
   def index
     @markets = Market.all.order(created_at: :desc)
@@ -18,15 +19,20 @@ class MarketsController < ApplicationController
     end
   end
 
-  #def edit
-    #if @market.user_id == current_user.id && @market.buy.nil?
-    #else
-    #  redirect_to root_path
-    #end
-  #end
+  def edit
+
+  end
+  
+  def update
+    @market.update(market_params)
+    if @market.valid?
+      redirect_to market_path(market_params)
+    else
+      render 'edit'
+    end
+  end
 
   def show
-    @market = Market.find(params[:id])
   end
 
   private
@@ -35,8 +41,8 @@ class MarketsController < ApplicationController
     params.require(:market).permit(:image, :goods, :explan, :category_id, :condition_id, :shipping_fee_id, :prefecture_id, :shipping_day_id, :price).merge(user_id: current_user.id)
   end
 
-  #def set_market
-  #  @market = Market.find(params[:id])
-  #end
+  def set_market
+    @market = Market.find(params[:id])
+  end
 end
 
