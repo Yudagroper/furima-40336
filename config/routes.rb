@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   root to: 'markets#index'
   # Defines the root path route ("/")
   # root "articles#index"
+<<<<<<< Updated upstream
   resources :markets, only: [:index, :new, :create, :show] #do
+=======
+  resources :markets #do
+>>>>>>> Stashed changes
     #resources :recepits, only: [:index, :create]
   #end
 end

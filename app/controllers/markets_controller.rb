@@ -1,5 +1,9 @@
 class MarketsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+<<<<<<< Updated upstream
+=======
+  before_action :set_market, only: [:show, :edit, :update, :destroy]
+>>>>>>> Stashed changes
 
   def index
     @markets = Market.all.order(created_at: :desc)
@@ -27,6 +31,15 @@ class MarketsController < ApplicationController
 
   def show
     @market = Market.find(params[:id])
+  end
+
+  def destroy
+    if @market.user_id == current_user.id
+      @market.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
   end
 
   private
