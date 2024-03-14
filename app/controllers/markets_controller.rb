@@ -1,6 +1,8 @@
 class MarketsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_market, only: [:show, :edit, :update]
+  before_action :set_market, only: [:show, :edit, :update, :destroy]
+  before_action :check_item_availability, only: [:edit, :destroy]
+
 
   def index
     @markets = Market.all.order(created_at: :desc)
@@ -20,10 +22,7 @@ class MarketsController < ApplicationController
   end
 
   def edit
-    if @market.user_id == current_user.id
-    else
-      redirect_to root_path
-    end
+
   end
   
   def update
@@ -38,6 +37,11 @@ class MarketsController < ApplicationController
   def show
   end
 
+  def destroy
+      @market.destroy
+      redirect_to root_path
+  end
+
   private
 
   def market_params
@@ -46,6 +50,13 @@ class MarketsController < ApplicationController
 
   def set_market
     @market = Market.find(params[:id])
+  end
+  
+  def check_item_availability
+    if @market.user_id == current_user.id
+    else
+      redirect_to root_path
+    end
   end
 end
 

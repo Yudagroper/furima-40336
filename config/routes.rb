@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root to: 'markets#index'
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :markets, only: [:index, :new, :create, :show, :edit, :update] #do
+
+  resources :markets #do
+
     #resources :recepits, only: [:index, :create]
   #end
 end
