@@ -20,7 +20,10 @@ class MarketsController < ApplicationController
   end
 
   def edit
-
+    if @market.user_id == current_user.id
+    else
+      redirect_to root_path
+    end
   end
   
   def update
@@ -28,7 +31,7 @@ class MarketsController < ApplicationController
     if @market.valid?
       redirect_to market_path(market_params)
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity
     end
   end
 
