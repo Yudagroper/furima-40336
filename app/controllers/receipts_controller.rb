@@ -1,8 +1,9 @@
 class ReceiptsController < ApplicationController
   before_action :authenticate_user!
-  before_action :non_purchased_item, only: [:index, :create]
+  before_action :non_purchased_market, only: [:index, :create]
 
   def index
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @receipt_form = ReceiptForm.new
   end
 
@@ -13,22 +14,22 @@ class ReceiptsController < ApplicationController
       @receipt_form.save
       redirect_to root_path
     else
-      render :index
+      render :index, status: :unprocessable_entity
     end
   end
 
   private
 
-  def order_params
+  def receipt_params
     params.require(:receipt_form).permit(:postcode, :prefecture_id, :municipalities, :street_address, :building, :telephone_number).merge(user_id: current_user.id, market_id: params[:market_id], token: params[:token])
   end
 
   def pay_market
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
-      amount: @market.price,        
-      card: receipt_params[:token], 
-      currency: 'jpy'             
+      amount: @market.price,
+      card: receipt_params[:token],
+      currency: 'jpy'
     )
   end
 

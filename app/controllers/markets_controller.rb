@@ -5,7 +5,7 @@ class MarketsController < ApplicationController
 
 
   def index
-    @markets = Market.all.order(created_at: :desc)
+    @markets = Market.includes(:user).order(created_at: :desc)
   end
 
   def new
@@ -22,7 +22,10 @@ class MarketsController < ApplicationController
   end
 
   def edit
-
+    if @market.user_id == current_user.id && @market.receipt.nil?
+    else
+      redirect_to root_path
+    end
   end
   
   def update

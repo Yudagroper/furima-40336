@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :markets do
-   resources :recepits, only: [:index, :create]
+   resources :receipts, only: [:index, :create]
   end
 end

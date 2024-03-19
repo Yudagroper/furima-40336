@@ -1,3 +1,3 @@
 class Buy < ApplicationRecord
-  belongs_to :recepit
+  belongs_to :receipt
 end

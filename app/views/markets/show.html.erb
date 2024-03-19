@@ -8,9 +8,11 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @market.image.variant(resize: '500x500'),class:"item-box-img" %>
+      <% if @market.receipt.present? %>
       <div class="sold-out">
         <span>Sold Out!!</span>
       </div>
+      <% end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -22,15 +24,13 @@
     </div>
 
 
-  <% if user_signed_in? %>
-    <% if current_user.id == @market.user_id%>
-      <%= link_to "商品の編集", edit_market_path(@market), method: :get, class: "item-red-btn" %>
-      <p class="or-text">or</p>
-      <%= link_to "削除", market_path, data: {turbo_method: :delete}, class:"item-destroy" %>
-    <% elsif%>
-      <%=link_to "Sold out", "#", class: %>
+  <% if user_signed_in? && @market.receipt.nil? %> 
+    <% if current_user.id == @market.user_id %> 
+      <%= link_to '商品の編集', edit_market_path(@market), method: :get, class: "item-red-btn" %>
+      <p class='or-text'>or</p>
+      <%= link_to '削除', market_path(@market), method: :delete, class:'item-destroy' %>
     <% else %>
-      <%= link_to "購入画面に進む", "#" , data: { turbo: false }, class:"item-red-btn"%>
+      <%= link_to '購入画面に進む', market_receipts_path(@market), class:"item-red-btn"%>
     <% end %>
   <% end %>
 
