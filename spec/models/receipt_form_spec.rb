@@ -23,15 +23,15 @@ RSpec.describe ReceiptForm, type: :model do
         expect(@receipt_form).to be_valid
       end
       it '都道府県が「---」以外かつ空でなければ保存できる' do
-        @receipt_form.prefecture_id = 1
+        @receipt_form.prefecture_id = 23
         expect(@receipt_form).to be_valid
       end
       it '市区町村が空でなければ保存できる' do
-        @receipt_form.municipalities = '横浜市'
+        @receipt_form.municipalities = '名古屋市中区'
         expect(@receipt_form).to be_valid
       end
       it '番地が空でなければ保存できる' do
-        @receipt_form.street_address = '旭区１２３'
+        @receipt_form.street_address = '大須２丁目２１－４７'
         expect(@receipt_form).to be_valid
       end
       it '建物名が空でも保存できる' do
@@ -78,27 +78,27 @@ RSpec.describe ReceiptForm, type: :model do
       it '市区町村が空だと保存できないこと' do
         @receipt_form.municipalities = nil
         @receipt_form.valid?
-        expect(@receipt_form.errors.full_messages).to include("Municipalitie can't be blank")
+        expect(@receipt_form.errors.full_messages).to include("Municipalities can't be blank")
       end
       it '番地が空だと保存できないこと' do
         @receipt_form.street_address = nil
         @receipt_form.valid?
-        expect(@receipt_form.errors.full_messages).to include("Street_address can't be blank")
+        expect(@receipt_form.errors.full_messages).to include("Street address can't be blank")
       end
       it '電話番号が空だと保存できないこと' do
         @receipt_form.telephone_number = nil
         @receipt_form.valid?
-        expect(@receipt_form.errors.full_messages).to include("Phone number can't be blank")
+        expect(@receipt_form.errors.full_messages).to include("Telephone number can't be blank")
       end
       it '電話番号にハイフンがあると保存できないこと' do
         @receipt_form.telephone_number = '123 - 1234 - 1234'
         @receipt_form.valid?
-        expect(@receipt_form.errors.full_messages).to include('Phone number is invalid')
+        expect(@receipt_form.errors.full_messages).to include('Telephone number is invalid')
       end
       it '電話番号が12桁以上あると保存できないこと' do
         @receipt_form.telephone_number = 12_345_678_910_123_111
         @receipt_form.valid?
-        expect(@receipt_form.errors.full_messages).to include('Phone number is invalid')
+        expect(@receipt_form.errors.full_messages).to include('Telephone number is invalid')
       end
       it 'トークンが空だと保存できないこと' do
         @receipt_form.token = nil
