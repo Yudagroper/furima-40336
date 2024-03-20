@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe ReceiptForm, type: :model do
   before do
-    @receipt_form = FactoryBot.build(:receipt_form)
+    user = FactoryBot.create(:user)
+    market = FactoryBot.create(:market)
+    @receipt_form = FactoryBot.build(:receipt_form, user_id: user.id, market_id: market.id)
   end
 
   describe '配送先情報の保存' do
@@ -92,6 +94,11 @@ RSpec.describe ReceiptForm, type: :model do
       end
       it '電話番号にハイフンがあると保存できないこと' do
         @receipt_form.telephone_number = '123 - 1234 - 1234'
+        @receipt_form.valid?
+        expect(@receipt_form.errors.full_messages).to include('Telephone number is invalid')
+      end
+      it '電話番号が9桁以下だと保存できないこと' do
+        @receipt_form.telephone_number = 12_345_678_9
         @receipt_form.valid?
         expect(@receipt_form.errors.full_messages).to include('Telephone number is invalid')
       end

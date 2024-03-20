@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :receipt_form do
-    user_id { Faker::Number.non_zero_digit }
-    market_id { Faker::Number.non_zero_digit }
     postcode { Faker::Number.decimal_part(digits: 3) + '-' + Faker::Number.decimal_part(digits: 4) }
     prefecture_id { Faker::Number.between(from: 1, to: 47) }
     municipalities { Faker::Address.city }
