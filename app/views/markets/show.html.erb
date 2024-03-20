@@ -30,7 +30,7 @@
       <p class='or-text'>or</p>
       <%= link_to '削除', market_path(@market), data: {turbo_method: :delete}, method: :delete, class:'item-destroy' %>
     <% else %>
-      <%= link_to '購入画面に進む', market_receipts_path(@market), class:"item-red-btn"%>
+      <%= link_to '購入画面に進む', market_receipts_path(@market),  data: { turbo: false }, class:"item-red-btn"%>
     <% end %>
   <% end %>
 
