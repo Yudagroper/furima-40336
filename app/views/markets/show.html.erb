@@ -28,9 +28,9 @@
     <% if current_user.id == @market.user_id %> 
       <%= link_to '商品の編集', edit_market_path(@market), method: :get, class: "item-red-btn" %>
       <p class='or-text'>or</p>
-      <%= link_to '削除', market_path(@market), data: {turbo_method: :delete}, method: :delete, class:'item-destroy' %>
+      <%= link_to '削除', market_path(@market), data: {turbo_method: :delete} class:'item-destroy' %>
     <% else %>
-      <%= link_to '購入画面に進む', market_receipts_path(@market),  data: { turbo: false }, class:"item-red-btn"%>
+      <%= link_to '購入画面に進む', market_receipts_path(@market), data: { turbo: false }, class:"item-red-btn"%>
     <% end %>
   <% end %>
 
