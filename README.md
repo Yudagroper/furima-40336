@@ -65,7 +65,6 @@ belongs_to :user
 | --------- | ---------- | ------------------------------ |
 | market    | references | null: false, foreign_key: true |
 | user      | references | null: false, foreign_key: true |
-
 ### Association
 belongs_to :user
 belongs_to :market
@@ -78,7 +77,7 @@ has_one :buy
 | prefecture_id      | integer    | null: false                    |
 | municipalities     | string     | null: false                    |
 | street_address     | string     | null: false                    |
-| building_name      | string     |                                |
+| building           | string     |                                |
 | telephone_number   | string     | null: false                    |
 | receipt            | references | null: false, foreign_key: true |
 
