@@ -12,8 +12,9 @@ class ReceiptsController < ApplicationController
     if @receipt_form.valid?
       pay_market
       @receipt_form.save
-      redirect_to root_path
+      return redirect_to root_path
     else
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       render :index, status: :unprocessable_entity
     end
   end
